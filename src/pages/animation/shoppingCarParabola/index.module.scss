@@ -1,0 +1,54 @@
+$duration: 0.8s;
+
+.container {
+  /* margin: 30px; */
+  /* border: 1px solid orange; */
+}
+
+.addButton {
+  position: relative;
+  left: 500px;
+  top: 80px;
+  width: 50px;
+  height: 24px;
+}
+
+.plusWrapper {
+  position: fixed;
+  animation: moveY $duration cubic-bezier(0.5, -0.5, 1, 1);
+}
+
+.plusIcon {
+  animation: moveX $duration linear;
+}
+
+/* linear */
+.cartWrapper {
+  position: relative;
+  left: 30px;
+  top: 500px;
+  transform: scale(1);
+  width: 48px;
+}
+
+.scaleAnimationClass {
+  animation: scaleAnimation 0.3s;
+}
+
+@keyframes moveX {
+  to {
+    transform: translateX(var(--x));
+  }
+}
+
+@keyframes moveY {
+  to {
+    transform: translateY(var(--y));
+  }
+}
+
+@keyframes scaleAnimation {
+  to {
+    transform: scale(1.2);
+  }
+}

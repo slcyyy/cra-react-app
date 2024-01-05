@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    .outer {
+      display: flex;
+      height: 100%;
+    }
+
+    .left {
+      width: 100px;
+      background: tomato;
+    }
+
+    .right {
+      width: 100px;
+      background: gold;
+    }
+
+    .center {
+      flex: 1;
+      background: lightgreen;
+    }
+  </style>
+  <body>
+    <div class="outer">
+      <div class="left"></div>
+      <div class="center"></div>
+      <div class="right"></div>
+    </div>
+  </body>
+</html>

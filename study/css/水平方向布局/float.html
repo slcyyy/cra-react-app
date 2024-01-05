@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>两栏布局</title>
+  </head>
+  <style>
+    .wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .container {
+      width: 400px;
+      height: 300px;
+      border: 1px solid black;
+    }
+    .left {
+      width: 100px;
+      background-color: aqua;
+      height: 100%;
+    }
+    .right {
+      height: 100%;
+      background-color: blueviolet;
+    }
+    .float {
+      float: left;
+    }
+    .bfc {
+      overflow: hidden;
+    }
+    .grid-box {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+    }
+  </style>
+
+  <body>
+    <div class="wrapper">
+      <section>
+        <h1>float bfc</h1>
+        <div class="container">
+          <div class="left float">left</div>
+          <div class="right bfc">right</div>
+        </div>
+      </section>
+      <section>
+        <h1>flex</h1>
+        <div class="container" style="display: flex">
+          <div class="left">left</div>
+          <div class="right" style="flex: 1">right</div>
+        </div>
+      </section>
+      <section>
+        <h1>flex</h1>
+        <div class="container" style="display: flex">
+          <div class="left">left</div>
+          <div class="right" style="flex: 1">right</div>
+        </div>
+      </section>
+      <section>
+        <h1>grid</h1>
+        <div class="container grid-box">
+          <div class="left">left</div>
+          <div class="right">right</div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

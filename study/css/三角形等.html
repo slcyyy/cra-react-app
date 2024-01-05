@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>三角形</title>
+  </head>
+  <style>
+    div {
+      margin-bottom: 10px;
+    }
+    .trangle div:nth-of-type(1) {
+      width: 0;
+      height: 0;
+      border-top: 50px solid red;
+      border-right: 50px solid transparent;
+      border-left: 50px solid transparent;
+    }
+    .trangle div:nth-of-type(2) {
+      width: 0;
+      height: 0;
+      border-top: 50px solid red;
+      border-right: 50px solid transparent;
+    }
+    .trangle div:nth-of-type(3) {
+      width: 0;
+      height: 0;
+      border-left: 50px solid transparent;
+      border-bottom: 50px solid red;
+    }
+    .trangle div:nth-of-type(4) {
+      width: 0;
+      height: 0;
+      border-top: 50px solid red;
+      border-left: 50px solid transparent;
+    }
+    .fan div:nth-of-type(1) {
+      width: 0;
+      height: 0;
+      border-top: 100px solid transparent;
+      border-right: 100px solid red;
+      border-bottom: 100px solid transparent;
+      border-left: 100px solid transparent;
+      border-radius: 100px;
+      transform: rotate(45deg);
+    }
+  </style>
+  <body>
+    <div class="trangle">
+      <p>三角形</p>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="fan">
+      <p>扇形</p>
+      <div></div>
+    </div>
+    div
+  </body>
+</html>
