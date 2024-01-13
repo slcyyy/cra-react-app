@@ -2,6 +2,8 @@ import { FlagTwoTone, BulbTwoTone } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import { Menu as AntdMenu } from "antd";
 import { Link } from "react-router-dom";
+import { routesConfig } from "router";
+import { rootCertificates } from "tls";
 
 type MenuItem = {
   key: string;
@@ -11,90 +13,103 @@ type MenuItem = {
   children?: any;
 };
 
-const MENU_DATA: MenuItem[] = [
-  {
-    key: "1",
-    label: "动画",
-    icon: "BulbTwoTone",
-    children: [
-      {
-        key: "101",
-        label: "购物车",
-        icon: "FlagTwoTone",
-        path: "/animation/shoppingCarParabola",
-      },
-    ],
-  },
-  {
-    key: "2",
-    label: "设置",
-    icon: "FlagTwoTone",
-    path: "/settings",
-  },
-  {
-    key: "3",
-    label: "低代码",
-    icon: "FlagTwoTone",
-    path: "/lowCode",
-    children: [
-      {
-        key: "301",
-        label: "表单",
-        icon: "FlagTwoTone",
-        path: "/lowCode/lowCodeForm",
-      },
-    ],
-  },
-];
+// const MENU_DATA: MenuItem[] = [
+
+// {
+//   key: "/settings",
+//   label: "设置",
+//   children: [
+//     {
+//       key: "roleManagement",
+//       label: "角色管理",
+//     },
+//     {
+//       key: "/theme-settings",
+//       label: "主题设置",
+//     },
+
+//   ],
+// },
+//   {
+//     key: "/dashboard/editor",
+//     label: "可视化编辑器",
+//   },
+
+// ];
+
 const iconList: Record<string, any> = {
   FlagTwoTone: FlagTwoTone,
   BulbTwoTone: BulbTwoTone,
 };
-export const Menu = () => {
+export const SideBar = () => {
   const [menuData, setMenuData] = useState<any[]>([]);
+
+  useEffect(() => {
+    // 1.远程加载menu菜单
+    // 2.处理menu数据，添加icon
+    const routes = JSON.parse(localStorage.getItem("ROUTE_CONFIG") || "[]");
+    console.log("routes", routes[0].children);
+
+    const newMenu = generateMenuItems(routes[0].children);
+    // console.log("newMenu", newMenu);
+    // 3.渲染
+    setMenuData(newMenu);
+  }, []);
 
   /**
    * @method 处理menu数据，添加icon
    * @param data
    * @returns
    */
-  const generateMenuItems: any = (data: any[]) => {
-    return data.map((item: any) => {
-      const icon =
-        item.icon && iconList[item.icon]
-          ? React.createElement(iconList[item.icon])
-          : null;
-      const label =
-        item.children && item.children.length > 0 ? (
-          item.label
-        ) : (
-          <Link to={item.path}>{item.label}</Link>
-        );
-      if (item.children && item.children.length > 0) {
-        return {
-          key: item.key,
-          label: label,
-          icon: icon,
-          children: generateMenuItems(item.children),
-        };
+  const generateMenuItems: any = (data: any[], parentKey = "") => {
+    const menuTree = [];
+
+    for (const item of data) {
+      if ((item.meta && item.meta.isMenu) || item.name == "root") {
+        if (item.name == "root") {
+          generateMenuItems(item.children, "");
+        } else {
+          const icon =
+            item.icon && iconList[item.icon]
+              ? React.createElement(iconList[item.icon])
+              : null;
+          let path = "";
+          // 层级包裹组件
+          if (item?.meta?.redirectUrl) {
+            path = item.meta.redirectUrl;
+          } else {
+            path = parentKey
+              ? parentKey + "/" + item.path
+              : parentKey + item.path;
+          }
+          const menuItem: any = {
+            key: path,
+            icon,
+            label: <Link to={path}>{item.name}</Link>,
+          };
+
+          if (item.children && item.children.length > 0) {
+            const childItems = generateMenuItems(item.children, item.path);
+            if (childItems?.length > 0) {
+              menuItem.children = childItems;
+              menuItem.label = item.name;
+            }
+          }
+
+          menuTree.push(menuItem);
+        }
       }
-      return {
-        key: item.key,
-        label: label,
-        icon,
-      };
-    });
+    }
+
+    return menuTree;
   };
 
-  useEffect(() => {
-    // 1.远程加载menu菜单
-    // 2.处理menu数据，添加icon
-    const newMenu = generateMenuItems(MENU_DATA);
-    // 3.渲染
-    setMenuData(newMenu);
-  }, []);
-
-  return <AntdMenu mode="inline" style={{ width: 256 }} items={menuData} />;
+  return (
+    <AntdMenu
+      mode="inline"
+      style={{ width: 256 }}
+      items={menuData}
+      defaultSelectedKeys={["1"]} // 默认选中首页
+    />
+  );
 };
-
-console.log(iconList);

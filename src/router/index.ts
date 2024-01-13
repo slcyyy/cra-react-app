@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
-import basicLayout from "./basic";
-import animationLayout from "./animaiton";
+import { basicRoutes, privateRoutes } from "./basic";
+export * from "./basic";
+// import animationLayout from "./animaiton";
 
 // const modules = require.context("./", false, /\.tsx$/);
 // const routeModuleList: any[] = [];
@@ -16,8 +17,6 @@ import animationLayout from "./animaiton";
 // console.log('routes',routes)
 
 // const routes = [...routeModuleList];
-const routes = [...basicLayout, ...animationLayout];
+export const routesConfig = [...basicRoutes];
 
-console.log("routes", routes);
-
-export default createBrowserRouter(routes);
+console.log("routes", routesConfig);

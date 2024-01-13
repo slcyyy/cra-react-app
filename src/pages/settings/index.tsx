@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import { AuthWrapper } from "auth";
+import { AuthWrapper } from "components";
 import React, { useState, useEffect } from "react";
 
 export default () => {

@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { Menu } from "./menu";
+import { SideBar } from "./menu";
 import styles from "./layout.module.css";
 import { HeartTwoTone } from "@ant-design/icons";
 import { useState } from "react";
@@ -41,10 +41,10 @@ export const RootLayout = () => {
         </div>
       </header>
       <div className="flex">
-        <Menu></Menu>
-        <div className="flex-1">
+        <SideBar />
+        <main className="flex-1">
           <Outlet />
-        </div>
+        </main>
       </div>
     </div>
   );
