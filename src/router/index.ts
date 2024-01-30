@@ -18,5 +18,6 @@ export * from "./basic";
 
 // const routes = [...routeModuleList];
 export const routesConfig = [...basicRoutes];
+const router = createBrowserRouter(basicRoutes);
 
-console.log("routes", routesConfig);
+export default router;

@@ -10,11 +10,13 @@ import {
   useNavigate,
   useLocation,
 } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { Loading } from "components/Loading";
 import { DEFAULT_AUTHORITIES } from "config/auth";
+import { AuthRoute } from "components/AuthRoute";
+import router from "router";
+const { whenProd, getPlugin, pluginByName } = require("@craco/craco");
 
-const router = createBrowserRouter(basicRoutes);
 const AUTHORITY = DEFAULT_AUTHORITIES;
 function App() {
   const flag = useRef(false);
@@ -41,6 +43,7 @@ function App() {
         return false;
       });
     };
+    // todo:在白名单中的ip应该done直接为true
     setTimeout(() => {
       const result = _loop(privateRoutes);
       router.routes[0].children?.push(...result); // !!!需要扩展一次
@@ -48,22 +51,25 @@ function App() {
       router.navigate(location.pathname);
 
       localStorage.setItem("ROUTE_CONFIG", JSON.stringify(router.routes));
-    }, 900);
+    }, 200);
   };
 
   useEffect(() => {
     if (!flag.current) {
       // useRef变化会触发重新渲染吗？
-      console.log(1);
       flag.current = true;
       generateRoutes();
       // .pushState(null, "dd", location.pathname);
     }
   }, []);
   return (
-    <div className="w-full h-full">
-      {done ? <RouterProvider router={router} /> : <Loading />}
-    </div>
+    <AuthRoute>
+      <div className="w-full h-full">
+        <Suspense fallback={<Loading />}>
+          {done ? <RouterProvider router={router} /> : <Loading />}
+        </Suspense>
+      </div>
+    </AuthRoute>
   );
 }
 // 让组件变成响应式

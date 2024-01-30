@@ -8,3 +8,6 @@ export const RoleList = LoadableComponent(
 );
 export const Test = LoadableComponent(() => import("./Test"));
 export const Photo = LoadableComponent(() => import("./face-management/photo"));
+export const VirtualList = LoadableComponent(
+  () => import("./knowlege/virtualList")
+);

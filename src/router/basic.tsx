@@ -10,7 +10,14 @@ import Settings from "pages/settings";
 // import { LowCodeForm } from "pages/lowcode/form";
 import ErrorPage from "pages/error-page";
 import { RoleDetail } from "pages/roleManagement";
-import { Login, HomePage, RoleList, Test, Photo } from "pages/index";
+import {
+  Login,
+  HomePage,
+  RoleList,
+  Test,
+  Photo,
+  VirtualList,
+} from "pages/index";
 
 export const basicRoutes = [
   {
@@ -89,7 +96,7 @@ export const privateRoutes = [
   {
     name: "可视化编辑器",
     path: "/dashboard/editor",
-    element: <RoleDetail />,
+    element: <DashboardEditor />,
     meta: {
       authorityId: "3",
       isMenu: true,
@@ -116,6 +123,23 @@ export const privateRoutes = [
               authorityId: "",
             },
           ],
+        },
+      },
+    ],
+  },
+  {
+    path: "/knowledge",
+    name: "小知识点",
+    meta: {
+      isMenu: true,
+    },
+    children: [
+      {
+        path: "virtualList",
+        name: "虚拟列表",
+        element: <VirtualList />,
+        meta: {
+          isMenu: true,
         },
       },
     ],

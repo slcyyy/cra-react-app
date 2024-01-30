@@ -1,14 +1,52 @@
-import { Button } from "antd";
-export default () => {
+import React, { FC } from "react";
+import styles from "./styles.module.less";
+// import { useParams } from 'react-router-dom'
+// import { useDispatch } from "react-redux";
+// import { useTitle } from "ahooks";
+// import { changeSelectedId } from "../../../store/componentsReducer";
+// import useLoadQuestionData from "../../../hooks/useLoadQuestionData";
+// import useGetPageInfo from "../../../hooks/useGetPageInfo";
+// import EditHeader from "./EditHeader";
+import EditCanvas from "./components/editCanvas";
+import LeftPanel from "./components/leftPanel";
+// import RightPanel from "./RightPanel";
+// import styles from "./index.module.scss";
+
+const Edit: FC = () => {
+  // const { id = '' } = useParams()
+  // const dispatch = useDispatch();
+
+  // const { loading } = useLoadQuestionData();
+
+  // function clearSelectedId() {
+  //   dispatch(changeSelectedId(""));
+  // }
+
+  // // 修改标题
+  // const { title } = useGetPageInfo();
+  // useTitle(`问卷编辑 - ${title}`);
+
   return (
-    <div className="w-full h-full flex">
-      <div className="h-full flex-1 ">
-        <Button type="primary">dianji</Button>
-        <h1 className="text-3xl font-bold underline">Hello world!</h1>
-      </div>
-      <div className="w-[340px] h-full border-lime-400  border-solid border-l-2">
-        right
+    <div className={styles.container}>
+      {/* <EditHeader /> */}
+
+      <div className={styles["content-wrapper"]}>
+        <div className={styles.content}>
+          <div className={styles.left}>
+            <LeftPanel />
+          </div>
+          <div className={styles.main}>
+            {/* <div className={styles["canvas-wrapper"]}> */}
+            <EditCanvas />
+            {/* </div> */}
+          </div>
+          {/* <div className={styles.right}>
+            <RightPanel />
+          </div> */}
+        </div>
       </div>
     </div>
   );
 };
+
+export default Edit;

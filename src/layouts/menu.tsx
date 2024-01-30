@@ -1,9 +1,7 @@
 import { FlagTwoTone, BulbTwoTone } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import { Menu as AntdMenu } from "antd";
-import { Link } from "react-router-dom";
-import { routesConfig } from "router";
-import { rootCertificates } from "tls";
+import { Link, useLocation } from "react-router-dom";
 
 type MenuItem = {
   key: string;
@@ -13,36 +11,16 @@ type MenuItem = {
   children?: any;
 };
 
-// const MENU_DATA: MenuItem[] = [
-
-// {
-//   key: "/settings",
-//   label: "设置",
-//   children: [
-//     {
-//       key: "roleManagement",
-//       label: "角色管理",
-//     },
-//     {
-//       key: "/theme-settings",
-//       label: "主题设置",
-//     },
-
-//   ],
-// },
-//   {
-//     key: "/dashboard/editor",
-//     label: "可视化编辑器",
-//   },
-
-// ];
-
 const iconList: Record<string, any> = {
   FlagTwoTone: FlagTwoTone,
   BulbTwoTone: BulbTwoTone,
 };
 export const SideBar = () => {
   const [menuData, setMenuData] = useState<any[]>([]);
+  // 菜单高亮 todo:折叠状态
+  const location = useLocation();
+  const selectedKey = location.pathname;
+  console.log(location.pathname);
 
   useEffect(() => {
     // 1.远程加载menu菜单
@@ -109,7 +87,7 @@ export const SideBar = () => {
       mode="inline"
       style={{ width: 256 }}
       items={menuData}
-      defaultSelectedKeys={["1"]} // 默认选中首页
+      selectedKeys={[selectedKey]}
     />
   );
 };

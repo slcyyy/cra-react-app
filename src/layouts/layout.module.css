@@ -1,14 +1,6 @@
 @value headerTextColor:#0c77f8;
-
-.headerContainer {
-  color: headerTextColor;
-  width: 100%;
-  height: 60px;
-  border-bottom: 1px solid black;
-  display: flex;
-}
-
-:global(.normalFlexBox) {
+.headerLeft {
+  color: white;
   display: flex;
   gap: 5px;
   align-items: center;
